@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { crearUsuario, obtenerUsuarioPorDNI, setCurrentUser } from '@/lib/store';
 import { AlertCircle, CheckCircle } from 'lucide-react';
@@ -122,7 +123,13 @@ export default function AuthPage() {
         {/* Logo y título */}
         <div className="text-center mb-8">
           <div className="inline-block bg-primary rounded-lg p-3 mb-4">
-            <div className="text-2xl font-bold text-primary-foreground">₡</div>
+            <Image
+                src="/logo-fiape.png"             
+                alt="Logo Fiape"
+                width={56}                   
+                height={56}                  
+                className="object-contain"
+              />
           </div>
           <h1 className="text-3xl font-bold text-foreground">Fiape</h1>
           <p className="text-muted-foreground mt-2">Microcréditos inteligentes para emprendedores</p>
