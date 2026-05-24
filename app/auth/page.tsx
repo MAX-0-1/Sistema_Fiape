@@ -298,7 +298,7 @@ export default function AuthPage() {
         </Card>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          Fiape © 2024 - Plataforma segura de microcréditos
+          Fiape © 2026 - Plataforma segura de microcréditos
         </p>
       </div>
     </div>
