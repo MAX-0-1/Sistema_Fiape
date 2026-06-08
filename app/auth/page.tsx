@@ -120,13 +120,20 @@ export default function AuthPage() {
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary/10 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo y título */}
-        <div className="text-center mb-8">
-          <div className="inline-block bg-primary rounded-lg p-3 mb-4">
-            <div className="text-2xl font-bold text-primary-foreground">₡</div>
-          </div>
-          <h1 className="text-3xl font-bold text-foreground">Fiape</h1>
-          <p className="text-muted-foreground mt-2">Microcréditos inteligentes para emprendedores</p>
-        </div>
+{/* Logo */}
+<div className="text-center mb-8">
+  <div className="inline-block">
+    <img 
+      src="/fiape.png" 
+      alt="Logo Fiape" 
+      className="w-64 h-auto mx-auto rounded-lg"
+    />
+  </div>
+</div>
+
+
+
+
 
         <Card>
           {isLogin ? (
