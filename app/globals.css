@@ -123,3 +123,67 @@
     @apply bg-background text-foreground;
   }
 }
+
+:root[data-daltonic='true'] {
+  --background: oklch(0.98 0.004 260);
+  --foreground: oklch(0.18 0.01 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.01 260);
+  --primary: oklch(0.4 0.16 250);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.52 0.12 220);
+  --secondary-foreground: oklch(0.98 0 0);
+  --accent: oklch(0.62 0.18 250);
+  --accent-foreground: oklch(0.98 0 0);
+  --border: oklch(0.78 0.02 250);
+  --ring: oklch(0.4 0.16 250);
+}
+
+:root[data-daltonic='true'] body {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+:root[data-daltonic='true'] h1,
+:root[data-daltonic='true'] h2,
+:root[data-daltonic='true'] h3,
+:root[data-daltonic='true'] p,
+:root[data-daltonic='true'] li,
+:root[data-daltonic='true'] label,
+:root[data-daltonic='true'] button,
+:root[data-daltonic='true'] input,
+:root[data-daltonic='true'] textarea,
+:root[data-daltonic='true'] select {
+  font-size: inherit;
+}
+
+:root[data-daltonic='true'] h1 { font-size: 1.95rem; }
+:root[data-daltonic='true'] h2 { font-size: 1.5rem; }
+:root[data-daltonic='true'] h3 { font-size: 1.25rem; }
+:root[data-daltonic='true'] button,
+:root[data-daltonic='true'] input,
+:root[data-daltonic='true'] textarea,
+:root[data-daltonic='true'] select {
+  min-height: 2.9rem;
+  font-size: 1.02rem;
+  padding: 0.7rem 0.9rem;
+}
+
+:root[data-daltonic='true'] .text-xs { font-size: 0.95rem !important; }
+:root[data-daltonic='true'] .text-sm { font-size: 1.03rem !important; }
+:root[data-daltonic='true'] .text-base { font-size: 1.08rem !important; }
+:root[data-daltonic='true'] .text-lg { font-size: 1.18rem !important; }
+:root[data-daltonic='true'] .text-xl { font-size: 1.32rem !important; }
+:root[data-daltonic='true'] .text-2xl { font-size: 1.65rem !important; }
+
+:root[data-daltonic='true'] .bg-primary,
+:root[data-daltonic='true'] .bg-secondary,
+:root[data-daltonic='true'] .bg-accent {
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12);
+}
+
+:root[data-daltonic='true'] .rounded-lg,
+:root[data-daltonic='true'] .rounded-md,
+:root[data-daltonic='true'] .rounded-full {
+  border-width: 1.5px;
+}
