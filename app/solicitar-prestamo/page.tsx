@@ -7,8 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/Header';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { getCurrentUser, crearPrestamo } from '@/lib/store';
+import { getCurrentUser } from '@/lib/store';
 import { Usuario } from '@/lib/types';
+import { crearPrestamoBackend } from '@/lib/services/fiapeService';
 import { NIVELES_CREDITO } from '@/lib/config';
 import { AlertCircle, CheckCircle, DollarSign } from 'lucide-react';
 
@@ -82,7 +83,7 @@ export default function SolicitarPrestamoPage() {
         return;
       }
 
-      crearPrestamo(nuevoUsuario.id, montoNumerico);
+      await crearPrestamoBackend(nuevoUsuario.id, montoNumerico);
       setExito(true);
       setMonto('');
 

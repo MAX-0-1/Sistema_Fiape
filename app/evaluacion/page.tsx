@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { getCurrentUser, evaluarUsuario } from '@/lib/store';
+import { getCurrentUser } from '@/lib/store';
 import { Usuario, ReporteEvaluacion } from '@/lib/types';
+import { evaluarUsuarioBackend } from '@/lib/services/fiapeService';
 import { AlertCircle, CheckCircle, TrendingUp, Zap } from 'lucide-react';
 
 export default function EvaluacionPage() {
@@ -34,11 +35,10 @@ export default function EvaluacionPage() {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     try {
-      const nuevoReporte = evaluarUsuario(usuario, usuario.dni);
+      const nuevoReporte = await evaluarUsuarioBackend(usuario);
       setReporte(nuevoReporte);
       setCompletado(true);
       
-      // Actualizar usuario en estado
       const usuarioActualizado = getCurrentUser();
       if (usuarioActualizado) {
         setUsuario(usuarioActualizado);

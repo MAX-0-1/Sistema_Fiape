@@ -7,8 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/Header';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { getCurrentUser, pagarPrestamo, marcarPrestamoVencido } from '@/lib/store';
+import { getCurrentUser } from '@/lib/store';
 import { Usuario, Prestamo } from '@/lib/types';
+import { marcarPrestamoVencidoBackend, pagarPrestamoBackend } from '@/lib/services/fiapeService';
 import { AlertCircle, CheckCircle, Clock, TrendingUp } from 'lucide-react';
 
 export default function MisPrestamoosPage() {
@@ -72,9 +73,9 @@ export default function MisPrestamoosPage() {
       const estaVencido = ahora > fechaVencimiento;
 
       if (estaVencido && !usuario.reportadoEnInfocorp) {
-        marcarPrestamoVencido(usuarioActual.id, prestamoSeleccionado.id);
+        await marcarPrestamoVencidoBackend(usuarioActual.id, prestamoSeleccionado.id);
       } else {
-        pagarPrestamo(usuarioActual.id, prestamoSeleccionado.id, montoNumerico);
+        await pagarPrestamoBackend(usuarioActual.id, prestamoSeleccionado.id, montoNumerico);
       }
 
       const usuarioActualizado = getCurrentUser();
@@ -96,7 +97,7 @@ export default function MisPrestamoosPage() {
     }
   };
 
-  const handleMarcarVencido = () => {
+  const handleMarcarVencido = async () => {
     if (!prestamoSeleccionado) return;
 
     if (confirm('¿Confirmas que no pagarás este préstamo? Esto afectará tu historial crediticio y serás reportado a Infocorp.')) {
@@ -104,7 +105,7 @@ export default function MisPrestamoosPage() {
       try {
         const usuarioActual = getCurrentUser();
         if (usuarioActual) {
-          marcarPrestamoVencido(usuarioActual.id, prestamoSeleccionado.id);
+          await marcarPrestamoVencidoBackend(usuarioActual.id, prestamoSeleccionado.id);
           const usuarioActualizado = getCurrentUser();
           if (usuarioActualizado) {
             setUsuario(usuarioActualizado);

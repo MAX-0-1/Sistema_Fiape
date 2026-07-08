@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { crearUsuario, obtenerUsuarioPorDNI, setCurrentUser } from '@/lib/store';
 import { AlertCircle, CheckCircle } from 'lucide-react';
+import { iniciarSesion, registrarUsuario } from '@/lib/services/fiapeService';
 
 export default function AuthPage() {
   const router = useRouter();
@@ -58,7 +58,7 @@ export default function AuthPage() {
 
     setLoading(true);
     try {
-      const nuevoUsuario = crearUsuario({
+      await registrarUsuario({
         nombres,
         apellidos,
         dni,
@@ -94,14 +94,8 @@ export default function AuthPage() {
 
     setLoading(true);
     try {
-      const usuario = obtenerUsuarioPorDNI(dniLogin);
+      const usuario = await iniciarSesion(dniLogin, emailLogin);
 
-      if (!usuario || usuario.email !== emailLogin) {
-        setError('DNI o email no encontrado');
-        return;
-      }
-
-      setCurrentUser(usuario);
       setSuccess('Iniciando sesión...');
 
       setTimeout(() => {
@@ -111,6 +105,8 @@ export default function AuthPage() {
           router.push('/evaluacion');
         }
       }, 1000);
+    } catch (err: any) {
+      setError(err.message || 'DNI o email no encontrado');
     } finally {
       setLoading(false);
     }
