@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,6 +15,7 @@ import { AlertCircle, CheckCircle, DollarSign } from 'lucide-react';
 
 export default function SolicitarPrestamoPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [monto, setMonto] = useState('');
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,16 @@ export default function SolicitarPrestamoPage() {
     }
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    const autoAmount = searchParams.get('autoAmount');
+    if (autoAmount && !monto) {
+      const montoNumerico = Number(autoAmount);
+      if (!Number.isNaN(montoNumerico) && montoNumerico > 0) {
+        setMonto(String(montoNumerico));
+      }
+    }
+  }, [searchParams, monto]);
 
   if (loading || !usuario) {
     return <div>Cargando...</div>;
@@ -162,6 +173,11 @@ export default function SolicitarPrestamoPage() {
                       <p className="text-xs text-muted-foreground mt-2">
                         Monto disponible: S/ {usuario.saldoDisponible} - Máximo: S/ {nivelConfig.monto}
                       </p>
+                      {searchParams.get('autoAmount') && (
+                        <p className="mt-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-medium text-primary">
+                          Se cargó automáticamente el monto máximo permitido para tu nivel: S/ {Number(searchParams.get('autoAmount')).toFixed(0)}
+                        </p>
+                      )}
                     </div>
 
                     {/* Selector rápido de montos */}
